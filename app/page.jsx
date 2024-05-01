@@ -2,7 +2,7 @@
 
 import { styled } from "styled-components";
 import { useEffect, useState, useNavigate } from "react";
-import { auth } from "../firebase";
+import { auth } from "./firebase.js";
 import { signInWithEmailAndPassword } from "firebase/auth";
 
 const Wrap = styled.div`
