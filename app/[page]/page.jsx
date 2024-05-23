@@ -1,0 +1,20 @@
+import Articles from "../(page)/articles";
+import Auth from "../(page)/auth";
+import Note from "../(page)/note";
+import Plan from "../(page)/plan";
+import NotFound from "../not-found";
+
+export default function Page({ params: { page } }) {
+  switch (page) {
+    case "note":
+      return <Note />;
+    case "plan":
+      return <Plan />;
+    case "auth":
+      return <Auth />;
+    case "articles":
+      return <Articles />;
+    default:
+      return <NotFound />;
+  }
+}

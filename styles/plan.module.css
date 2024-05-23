@@ -1,0 +1,100 @@
+.plan {
+  font-family: "Pretendard Variable";
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.title {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.red {
+  color: rgb(200, 0, 0);
+}
+
+.blue {
+  color: rgb(0, 0, 200);
+}
+
+.tableCon {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 2rem;
+}
+
+.tableCon > div {
+  font-size: 1.5rem;
+  font-weight: 600;
+  text-align: center;
+  width: 20%;
+  padding: 1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-dark);
+}
+
+.tableCon table {
+  background: var(--black-bright);
+  border-collapse: collapse;
+}
+
+.tableCon td {
+  border: 1px solid var(--black);
+  width: 10rem;
+  box-sizing: border-box;
+  padding: 1rem;
+}
+
+.tableCon table thead tr td {
+  font-weight: 600;
+  font-size: 1.2rem;
+  height: 2rem;
+  text-align: center;
+}
+
+.tableCon table tbody tr td {
+  font-size: 1.1rem;
+  height: 6rem;
+}
+
+.tableCon table tbody tr td > div {
+  height: 100%;
+  display: flex;
+  flex-direction: column;
+  align-items: flex-start;
+}
+
+.tableCon table tbody tr td > div > div:nth-child(1) {
+  display: flex;
+  gap: 1rem;
+}
+
+.edit {
+  font-size: 0.8rem;
+  color: var(--gray-dark);
+  cursor: pointer;
+}
+
+.gameTagCon {
+  display: flex;
+  gap: 0.3rem;
+}
+
+.gameTag {
+  font-size: 0.7rem;
+  padding: 0.1rem 0.2rem;
+  margin: 0.3rem 0;
+  border-radius: 0.2rem;
+  background: var(--green-dark);
+}
+
+.auth {
+  font-size: 0.8rem;
+  font-weight: 600;
+  padding: 0.5rem 1rem;
+  margin-block: -1rem;
+  border-radius: 1rem;
+  border: 1px solid var(--gray-dark);
+}

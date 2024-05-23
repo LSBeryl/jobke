@@ -1,0 +1,108 @@
+.container,
+.container * {
+  font-family: "Pretendard Variable";
+}
+
+.container h2 {
+  text-align: center;
+  margin-block: 3rem;
+}
+
+.editor {
+  margin-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form input {
+  width: 90%;
+  outline: 0;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-top: 1px solid var(--gray-dark);
+  border-bottom: 1px solid var(--gray-dark);
+  padding: 1rem;
+}
+
+.form button {
+  width: 10%;
+  height: 3rem;
+  border: 1px solid var(--gray-dark);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.05rem;
+}
+
+.form button:hover {
+  background: #1d1d1d !important;
+}
+
+.editor > div,
+.editor > div * {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  -webkit-text-fill-color: var(--white) !important;
+}
+
+.tableCon {
+  display: flex;
+  justify-content: center;
+}
+
+.table {
+  width: 80%;
+  border-collapse: collapse;
+}
+
+.col10 {
+  width: 10%;
+}
+
+.col15 {
+  width: 15%;
+}
+
+.col60 {
+  width: 60%;
+}
+
+.table tr {
+  border-bottom: 1px solid var(--gray-dark);
+}
+
+.table thead tr {
+  border-top: 1px solid var(--gray);
+  font-weight: 600;
+}
+
+.table tbody tr {
+  cursor: pointer;
+}
+
+.table tbody tr:hover td {
+  background: #1d1d1d;
+}
+
+.table td {
+  padding: 1rem 1.2rem;
+  box-sizing: border-box;
+  text-align: center;
+}
+
+.table tbody td {
+  color: #bab5b5;
+}
+
+.table td:nth-child(2):not(thead td) {
+  text-align: left;
+}

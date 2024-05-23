@@ -1,0 +1,28 @@
+.wrap {
+  box-sizing: border-box;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+}
+
+.wrap form {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.wrap input[type="password"] {
+  padding: 0.3rem;
+  outline: none;
+  border: 1px solid var(--gray-dark);
+  background: var(--black);
+}
+
+.error {
+  color: #ff0000;
+  margin-top: 1rem;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}

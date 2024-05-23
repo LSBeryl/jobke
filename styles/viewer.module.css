@@ -1,0 +1,37 @@
+.note * {
+  background: var(--black) !important;
+  color: var(--white);
+  font-family: "Pretendard Variable";
+}
+
+.note > div {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.note > div > div:nth-child(1) {
+  /* 공지 제목 */
+  font-size: 2rem;
+  font-weight: 600;
+  padding-top: 1.5rem;
+  border-top: 1px solid #383838;
+}
+
+.note > div > div:nth-child(2) {
+  /* 공지 날짜 */
+  font-size: 0.9rem;
+  font-weight: 200;
+  color: var(--gray);
+  padding-bottom: 1.5rem;
+  border-bottom: 1px solid #383838;
+  display: flex;
+  gap: 1rem;
+}
+
+/* .note > div > div:nth-child(2) */
+
+.note > div > div:nth-child(3) {
+  /* 공지 내용 */
+  padding: 2rem;
+}

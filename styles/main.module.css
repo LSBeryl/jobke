@@ -1,0 +1,88 @@
+@import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
+
+@font-face {
+  font-family: "yj";
+  src: url("https://fastly.jsdelivr.net/gh/projectnoonnu/2403@1.0/YEONGJUSeonbiTTF.woff2")
+    format("woff2");
+  font-weight: normal;
+  font-style: normal;
+}
+
+.main {
+  font-family: "Pretendard Variable";
+}
+
+.main > div {
+  border-bottom: 1px solid var(--gray-dark);
+  padding-block: 2rem;
+}
+
+.description > div:nth-child(1) {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  gap: 1rem;
+}
+
+.description img {
+  height: 12rem;
+  border-radius: 1rem;
+}
+
+.ment {
+  display: flex;
+  flex-direction: column;
+  gap: 1rem;
+}
+
+.links {
+  display: flex;
+  justify-content: flex-end;
+  margin-top: 1rem;
+  margin-right: 1rem;
+  gap: 1rem;
+}
+
+.links img {
+  height: 2.5rem;
+  border-radius: 0.5rem;
+}
+
+.nick {
+  background: #fff;
+  color: var(--black);
+  padding: 0 0.3rem;
+  border-radius: 0.2rem;
+  font-family: "yj";
+  margin-inline: 0.2rem;
+}
+
+.ment > div:nth-child(1) {
+  font-size: 2rem;
+  font-weight: 700;
+}
+
+.ment > div:nth-child(2) {
+  color: var(--white);
+  line-height: 1.5rem;
+}
+
+.game {
+  display: flex;
+  flex-direction: column;
+  gap: 5rem;
+}
+
+.game > div {
+  transition: all 0.2s ease;
+}
+
+.game > div:hover:not(:nth-child(1)) {
+  transform: scale(1.01);
+}
+
+.game > div:nth-child(1) {
+  font-size: 2rem;
+  font-weight: 700;
+  margin-bottom: -3rem;
+}
