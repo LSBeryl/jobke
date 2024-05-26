@@ -120,3 +120,18 @@ a {
   box-sizing: border-box;
   padding: 2rem;
 }
+
+.footer {
+  font-family: "Pretendard Variable";
+  border-top: 1px solid rgba(255, 255, 255, 0.06);
+  color: var(--gray-dark);
+  display: flex;
+  justify-content: center;
+  padding: 3rem 0;
+  gap: 1rem;
+}
+
+.footer > div:nth-child(2) {
+  display: flex;
+  gap: 0.3rem;
+}
