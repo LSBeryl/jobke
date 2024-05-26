@@ -3,7 +3,7 @@
 import styles from "../../styles/write.module.css";
 import MDEditor from "@uiw/react-md-editor";
 import rehypeSanitize from "rehype-sanitize";
-import { useEffect, useState } from "react";
+import { use, useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { db, auth } from "../firebase";
 import { setPersistence, browserLocalPersistence } from "firebase/auth";
@@ -46,6 +46,10 @@ export default function Write({ searchParams }) {
   useEffect(() => {
     init();
   }, []);
+
+  useEffect(() => {
+    if (searchParams.type == "announce" && isLogin) setUserName("잡케");
+  }, [isLogin]);
 
   return (
     <div className={styles.container}>
