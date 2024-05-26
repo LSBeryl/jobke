@@ -29,9 +29,93 @@
   gap: 1rem;
 }
 
-/* .note > div > div:nth-child(2) */
-
 .note > div > div:nth-child(3) {
   /* 공지 내용 */
   padding: 2rem;
+}
+
+.replyText {
+  font-size: 1.2rem;
+  font-weight: 600;
+}
+
+.replyCon {
+  border-top: 1px solid #383838;
+  padding: 2rem 1rem;
+  display: flex;
+  flex-direction: column;
+  gap: 2rem;
+}
+
+.replyInputCon {
+  gap: 1.5rem;
+  padding: 2rem;
+  border-top: 1px solid #383838;
+  border-bottom: 1px solid #383838;
+}
+
+.replyInputCon > div {
+  display: flex;
+  gap: 1rem;
+}
+
+.replyInputCon > div > div {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.replyInputCon input {
+  outline: none;
+  border: 1px solid var(--gray-dark);
+  padding: 0.5rem;
+  height: 1rem;
+  width: 7rem;
+  border-radius: 0.4rem;
+}
+
+.replyInputCon textarea {
+  resize: none;
+  outline: none;
+  border: 1px solid var(--gray-dark);
+  height: 5rem;
+  width: 100%;
+  box-sizing: border-box;
+  padding: 1rem;
+  border-radius: 0.4rem;
+}
+
+.replyInputCon button {
+  outline: none;
+  border: 1px solid var(--gray-dark);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1.2rem;
+  margin-top: 1rem;
+  float: right;
+  cursor: pointer;
+}
+
+.reply {
+  display: flex;
+  flex-direction: column;
+  gap: 0.4rem;
+}
+
+.reply > div:nth-child(1) {
+  display: flex;
+  align-items: center;
+  gap: 0.5rem;
+}
+
+.reply > div:nth-child(1) > div:nth-child(1) {
+  font-weight: 500;
+}
+
+.reply > div:nth-child(1) > div:nth-child(2) {
+  font-size: 0.8rem;
+  font-weight: 300;
+  color: var(--gray);
+}
+.reply > div:nth-child(2) {
+  font-size: 0.9rem;
 }

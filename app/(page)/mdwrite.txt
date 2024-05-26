@@ -1,0 +1,37 @@
+<div className={styles.editor}>
+  <div className={styles.form}>
+    <input
+      type="text"
+      placeholder="제목"
+      value={title}
+      onChange={(v) => setTitle(v.target.value)}
+    />
+    <button
+      onClick={async () => {
+        if (mdValue && title) {
+          await addDoc(collection(db, "announcements"), {
+            title: title,
+            message: mdValue,
+            creationTime: new Date(),
+          });
+          setUpdate([...update]);
+          setTitle("");
+          setMdValue("");
+          alert("글이 등록되었습니다.");
+        } else {
+          alert("제목 혹은 내용이 입력되지 않았습니다.");
+        }
+      }}
+    >
+      등록
+    </button>
+  </div>
+  <MDEditor
+    height={400}
+    value={mdValue}
+    onChange={setMdValue}
+    previewOptions={{
+      rehypePlugins: [[rehypeSanitize]],
+    }}
+  />
+</div>

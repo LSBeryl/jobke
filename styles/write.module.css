@@ -1,0 +1,64 @@
+.container {
+  font-family: "Pretendard Variable";
+}
+
+.editor {
+  margin-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form input {
+  width: 90%;
+  outline: 0;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-top: 1px solid var(--gray-dark);
+  border-bottom: 1px solid var(--gray-dark);
+  padding: 1rem;
+}
+
+.form button {
+  width: 10%;
+  height: 2.5rem;
+  border: 1px solid var(--gray-dark);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.05rem;
+}
+
+.form button:hover {
+  background: #1d1d1d !important;
+}
+
+.editor > div,
+.editor > div * {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  -webkit-text-fill-color: var(--white) !important;
+}
+
+.name {
+  display: flex;
+  justify-content: center;
+}
+
+.name > input {
+  width: 100%;
+  background: transparent;
+  outline: none;
+  border: 1px solid var(--gray-dark);
+  border-radius: 0.5rem;
+  padding: 0.5rem 1rem;
+  font-size: 1.03rem;
+}
