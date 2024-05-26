@@ -70,7 +70,7 @@ export default function Articles() {
       <div className={styles.tableCon}>
         <div
           onClick={() => {
-            router.push("/write");
+            router.push("/write?type=normal");
           }}
         >
           <Pencil height="1rem" />
@@ -103,10 +103,12 @@ export default function Articles() {
                   <tr
                     key={i}
                     onClick={() => {
-                      router.push(`articles/${i + 1}?id=${ids[i][1]}`);
+                      router.push(
+                        `articles/${noteData.length - i}?id=${ids[i][1]}`
+                      );
                     }}
                   >
-                    <td>{i + 1}</td>
+                    <td>{noteData.length - i}</td>
                     <td>{data.title}</td>
                     <td>{data.userName}</td>
                     <td>{formatTime(data.creationTime.seconds * 1000)}</td>

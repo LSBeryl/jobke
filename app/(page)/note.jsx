@@ -18,12 +18,10 @@ import {
 import MDEditor from "@uiw/react-md-editor";
 import rehypeSanitize from "rehype-sanitize";
 import { useRouter } from "next/navigation";
+import { Pencil } from "lucide-react";
 
 export default function Note() {
-  const [mdValue, setMdValue] = useState("");
-  const [update, setUpdate] = useState([]);
   const [noteData, setNoteData] = useState([]);
-  const [title, setTitle] = useState("");
   const [isLogin, setLogin] = useState(false);
 
   const router = useRouter();
@@ -75,51 +73,22 @@ export default function Note() {
     }
 
     fetchData();
-  }, [update]);
+  }, []);
 
   return (
     <div className={styles.container}>
-      {isLogin ? (
-        <div className={styles.editor}>
-          <div className={styles.form}>
-            <input
-              type="text"
-              placeholder="제목"
-              value={title}
-              onChange={(v) => setTitle(v.target.value)}
-            />
-            <button
-              onClick={async () => {
-                if (mdValue && title) {
-                  await addDoc(collection(db, "announcements"), {
-                    title: title,
-                    message: mdValue,
-                    creationTime: new Date(),
-                  });
-                  setUpdate([...update]);
-                  setTitle("");
-                  setMdValue("");
-                  alert("공지가 등록되었습니다.");
-                } else {
-                  alert("제목 혹은 내용이 입력되지 않았습니다.");
-                }
-              }}
-            >
-              등록
-            </button>
-          </div>
-          <MDEditor
-            height={400}
-            value={mdValue}
-            onChange={setMdValue}
-            previewOptions={{
-              rehypePlugins: [[rehypeSanitize]],
-            }}
-          />
-        </div>
-      ) : null}
       <h2>공지사항</h2>
       <div className={styles.tableCon}>
+        {isLogin ? (
+          <div
+            onClick={() => {
+              router.push("/write?type=announce");
+            }}
+          >
+            <Pencil height="1rem" />
+            글쓰기
+          </div>
+        ) : null}
         <table className={styles.table}>
           <colgroup>
             <col className={styles.col10} />
@@ -147,10 +116,10 @@ export default function Note() {
                   <tr
                     key={i}
                     onClick={() => {
-                      router.push(`note/${i + 1}`);
+                      router.push(`note/${noteData.length - i}`);
                     }}
                   >
-                    <td>{i + 1}</td>
+                    <td>{noteData.length - i}</td>
                     <td>{data.title}</td>
                     <td>잡케</td>
                     <td>{formatTime(data.creationTime.seconds * 1000)}</td>

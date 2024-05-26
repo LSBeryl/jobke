@@ -23,7 +23,6 @@ import {
 export default function Page({ params: { page, id }, searchParams }) {
   const [noteData, setNoteData] = useState([]);
   const [articlesData, setArticlesData] = useState([]);
-  const [articleIds, setIds] = useState([]);
 
   const [repName, setRepName] = useState("익명");
   const [repMsg, setRepMsg] = useState("");
@@ -67,7 +66,6 @@ export default function Page({ params: { page, id }, searchParams }) {
     async function fetchIds() {
       const querySnapshot = await getDocs(collection(db, "articles"));
       const docIds = querySnapshot.docs.map((doc) => doc.id);
-      setIds(docIds);
       const promises = docIds.map(async (id) => {
         const snapshot = await getDoc(doc(db, "articles", id));
         return snapshot.data();
@@ -97,7 +95,7 @@ export default function Page({ params: { page, id }, searchParams }) {
                 return timeB - timeA;
               })
               .map((data, i) =>
-                i + 1 == id ? (
+                articlesData.length - i == id ? (
                   <div key={i}>
                     <div>{data.title}</div>
                     <div>
@@ -184,7 +182,7 @@ export default function Page({ params: { page, id }, searchParams }) {
                 return timeB - timeA;
               })
               .map((data, i) =>
-                i + 1 == id ? (
+                noteData.length - i == id ? (
                   <div key={i}>
                     <div>{data.title}</div>
                     <div>

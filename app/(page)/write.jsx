@@ -3,9 +3,10 @@
 import styles from "../../styles/write.module.css";
 import MDEditor from "@uiw/react-md-editor";
 import rehypeSanitize from "rehype-sanitize";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import { useRouter } from "next/navigation";
 import { db, auth } from "../firebase";
+import { setPersistence, browserLocalPersistence } from "firebase/auth";
 import {
   getDocs,
   collection,
@@ -18,12 +19,33 @@ import {
   query,
 } from "firebase/firestore";
 
-export default function Write() {
+export default function Write({ searchParams }) {
   const [title, setTitle] = useState("");
   const [mdValue, setMdValue] = useState("");
   const [userName, setUserName] = useState("");
 
+  const [isLogin, setLogin] = useState(false);
   const router = useRouter();
+
+  const init = async () => {
+    // 처음 마운트 될 때 실행되는 함수
+    // ready 시킨 후 localStorage에 user 존재하면 자동로그인
+    // 비밀번호가 맞아야 로그인되므로(잡케만 로그인 가능) 로그아웃 구현은 나중에 필요하면 함
+    await auth.authStateReady();
+    setPersistence(auth, browserLocalPersistence).then(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user) setLogin(true);
+        else if (!user && searchParams.type == "announce") {
+          router.push("/note");
+          alert("비정상적인 접근입니다.");
+        }
+      });
+    });
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
 
   return (
     <div className={styles.container}>
@@ -38,17 +60,34 @@ export default function Write() {
           <button
             onClick={async () => {
               if (mdValue && title && userName) {
-                await addDoc(collection(db, "articles"), {
-                  title: title,
-                  message: mdValue,
-                  creationTime: new Date(),
-                  userName: userName,
-                  reply: [],
-                });
-                setTitle("");
-                setMdValue("");
-                alert("글이 등록되었습니다.");
-                router.push("/articles");
+                if (searchParams.type == "announce") {
+                  if (isLogin) {
+                    await addDoc(collection(db, "announcements"), {
+                      title: title,
+                      message: mdValue,
+                      creationTime: new Date(),
+                      userName: userName,
+                    });
+                    setTitle("");
+                    setMdValue("");
+                    alert("글이 등록되었습니다.");
+                    router.push("/note");
+                  } else {
+                    alert("비정상적인 접근입니다.");
+                  }
+                } else if (searchParams.type == "normal") {
+                  await addDoc(collection(db, "articles"), {
+                    title: title,
+                    message: mdValue,
+                    creationTime: new Date(),
+                    userName: userName,
+                    reply: [],
+                  });
+                  setTitle("");
+                  setMdValue("");
+                  alert("글이 등록되었습니다.");
+                  router.push("/articles");
+                }
               } else {
                 alert("입력되지 않은 정보가 있습니다.");
               }

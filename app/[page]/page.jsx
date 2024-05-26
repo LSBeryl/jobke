@@ -5,7 +5,7 @@ import Plan from "../(page)/plan";
 import Write from "../(page)/write";
 import NotFound from "../not-found";
 
-export default function Page({ params: { page } }) {
+export default function Page({ params: { page }, searchParams }) {
   switch (page) {
     case "note":
       return <Note />;
@@ -16,7 +16,7 @@ export default function Page({ params: { page } }) {
     case "articles":
       return <Articles />;
     case "write":
-      return <Write />;
+      return <Write searchParams={searchParams} />;
     default:
       return <NotFound />;
   }

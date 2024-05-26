@@ -57,6 +57,23 @@
 .tableCon {
   display: flex;
   justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
+.tableCon > div {
+  display: flex;
+  align-items: center;
+  border: 1px solid var(--gray-dark);
+  padding: 0.4rem 0.6rem;
+  border-radius: 0.5rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 0.9rem;
+}
+
+.tableCon > div:hover {
+  background: #1d1d1d;
 }
 
 .table {
