@@ -86,6 +86,28 @@ export default function Page({ params: { page, id } }) {
     fetchData();
   }, [update]);
 
+  const [isLogin, setLogin] = useState(false);
+
+  const init = async () => {
+    // 처음 마운트 될 때 실행되는 함수
+    // ready 시킨 후 localStorage에 user 존재하면 자동로그인
+    // 비밀번호가 맞아야 로그인되므로(잡케만 로그인 가능) 로그아웃 구현은 나중에 필요하면 함
+    await auth.authStateReady();
+    setPersistence(auth, browserLocalPersistence).then(() => {
+      auth.onAuthStateChanged((user) => {
+        if (user) setLogin(true);
+        else if (!user && searchParams.type == "announce") {
+          router.push("/note");
+          alert("비정상적인 접근입니다.");
+        }
+      });
+    });
+  };
+
+  useEffect(() => {
+    init();
+  }, []);
+
   switch (page) {
     case "articles":
       return (
@@ -147,19 +169,39 @@ export default function Page({ params: { page, id } }) {
                         </div>
                         <button
                           onClick={async () => {
-                            await updateDoc(
-                              doc(db, "articles", searchParams.get("id")),
-                              {
-                                reply: arrayUnion({
-                                  creationTime: new Date(),
-                                  message: repMsg,
-                                  userName: repName,
-                                }),
+                            if (repName == "관리자") {
+                              if (isLogin) {
+                                await updateDoc(
+                                  doc(db, "articles", searchParams.get("id")),
+                                  {
+                                    reply: arrayUnion({
+                                      creationTime: new Date(),
+                                      message: repMsg,
+                                      userName: repName,
+                                    }),
+                                  }
+                                );
+                                setRepMsg("");
+                                setRepName("관리자");
+                                setUpdate([...update]);
+                              } else {
+                                alert("사용할 수 없는 이름입니다.");
                               }
-                            );
-                            setRepMsg("");
-                            setRepName("익명");
-                            setUpdate([...update]);
+                            } else {
+                              await updateDoc(
+                                doc(db, "articles", searchParams.get("id")),
+                                {
+                                  reply: arrayUnion({
+                                    creationTime: new Date(),
+                                    message: repMsg,
+                                    userName: repName,
+                                  }),
+                                }
+                              );
+                              setRepMsg("");
+                              setRepName("익명");
+                              setUpdate([...update]);
+                            }
                           }}
                         >
                           등록
