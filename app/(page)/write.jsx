@@ -80,17 +80,32 @@ export default function Write({ searchParams }) {
                     alert("비정상적인 접근입니다.");
                   }
                 } else if (searchParams.type == "normal") {
-                  await addDoc(collection(db, "articles"), {
-                    title: title,
-                    message: mdValue,
-                    creationTime: new Date(),
-                    userName: userName,
-                    reply: [],
-                  });
-                  setTitle("");
-                  setMdValue("");
-                  alert("글이 등록되었습니다.");
-                  router.push("/articles");
+                  if (userName == "관리자") {
+                    if (isLogin) {
+                      await addDoc(collection(db, "articles"), {
+                        title: title,
+                        message: mdValue,
+                        creationTime: new Date(),
+                        userName: "관리자",
+                        reply: [],
+                      });
+                      router.push("/articles");
+                    } else {
+                      alert("사용 불가한 이름입니다.");
+                    }
+                  } else {
+                    await addDoc(collection(db, "articles"), {
+                      title: title,
+                      message: mdValue,
+                      creationTime: new Date(),
+                      userName: userName,
+                      reply: [],
+                    });
+                    setTitle("");
+                    setMdValue("");
+                    alert("글이 등록되었습니다.");
+                    router.push("/articles");
+                  }
                 }
               } else {
                 alert("입력되지 않은 정보가 있습니다.");
