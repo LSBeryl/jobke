@@ -110,7 +110,23 @@ export default function Articles() {
                   >
                     <td>{noteData.length - i}</td>
                     <td>{data.title}</td>
-                    <td>{data.userName}</td>
+                    <td
+                      style={
+                        data.userName == "관리자"
+                          ? {
+                              color: "#a00",
+                              fontWeight: "700",
+                            }
+                          : data.userName == "잡케"
+                          ? {
+                              color: "var(--green-main)",
+                              fontWeight: "700",
+                            }
+                          : null
+                      }
+                    >
+                      {data.userName}
+                    </td>
                     <td>{formatTime(data.creationTime.seconds * 1000)}</td>
                   </tr>
                 ))

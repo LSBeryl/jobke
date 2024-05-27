@@ -80,13 +80,13 @@ export default function Write({ searchParams }) {
                     alert("비정상적인 접근입니다.");
                   }
                 } else if (searchParams.type == "normal") {
-                  if (userName == "관리자") {
+                  if (userName == "관리자" || userName == "잡케") {
                     if (isLogin) {
                       await addDoc(collection(db, "articles"), {
                         title: title,
                         message: mdValue,
                         creationTime: new Date(),
-                        userName: "관리자",
+                        userName: userName,
                         reply: [],
                       });
                       router.push("/articles");

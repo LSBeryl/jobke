@@ -169,7 +169,7 @@ export default function Page({ params: { page, id } }) {
                         </div>
                         <button
                           onClick={async () => {
-                            if (repName == "관리자") {
+                            if (repName == "관리자" || repName == "잡케") {
                               if (isLogin) {
                                 await updateDoc(
                                   doc(db, "articles", searchParams.get("id")),
@@ -182,7 +182,6 @@ export default function Page({ params: { page, id } }) {
                                   }
                                 );
                                 setRepMsg("");
-                                setRepName("관리자");
                                 setUpdate([...update]);
                               } else {
                                 alert("사용할 수 없는 이름입니다.");
@@ -199,7 +198,6 @@ export default function Page({ params: { page, id } }) {
                                 }
                               );
                               setRepMsg("");
-                              setRepName("익명");
                               setUpdate([...update]);
                             }
                           }}
@@ -231,7 +229,7 @@ export default function Page({ params: { page, id } }) {
                   <div key={i}>
                     <div>{data.title}</div>
                     <div>
-                      <span>작성자 : 잡케</span>
+                      <span>작성자 : {data.userName}</span>
                       <span>
                         작성일 : {formatTime(data.creationTime.seconds * 1000)}
                       </span>
