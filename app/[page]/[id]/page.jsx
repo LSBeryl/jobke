@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "../../../styles/viewer.module.css";
-import { useEffect, useState } from "react";
+import { Suspense, useEffect, useState } from "react";
 import NotFound from "../../not-found";
 import MDEditor from "@uiw/react-md-editor";
 import { db, auth } from "../../firebase";
@@ -142,26 +142,28 @@ export default function Page({ params: { page, id }, searchParams }) {
                             onChange={(e) => setRepMsg(e.target.value)}
                           ></textarea>
                         </div>
-                        <button
-                          onClick={async () => {
-                            // await updateDoc(
-                            //   doc(db, "articles", searchParams.id),
-                            //   {
-                            //     reply: arrayUnion({
-                            //       creationTime: new Date(),
-                            //       message: repMsg,
-                            //       userName: repName,
-                            //     }),
-                            //   }
-                            // );
-                            // setRepMsg("");
-                            // setRepName("익명");
-                            // setUpdate([...update]);
-                            console.log(searchParams);
-                          }}
-                        >
-                          등록
-                        </button>
+                        <Suspense fallback={<div>로딩...</div>}>
+                          <button
+                            onClick={async () => {
+                              // await updateDoc(
+                              //   doc(db, "articles", searchParams.id),
+                              //   {
+                              //     reply: arrayUnion({
+                              //       creationTime: new Date(),
+                              //       message: repMsg,
+                              //       userName: repName,
+                              //     }),
+                              //   }
+                              // );
+                              // setRepMsg("");
+                              // setRepName("익명");
+                              // setUpdate([...update]);
+                              console.log(searchParams);
+                            }}
+                          >
+                            등록
+                          </button>
+                        </Suspense>
                       </div>
                     </div>
                   </div>
