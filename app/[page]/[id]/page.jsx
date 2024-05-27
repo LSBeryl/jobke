@@ -1,7 +1,7 @@
 "use client";
 
 import styles from "../../../styles/viewer.module.css";
-import { Suspense, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import NotFound from "../../not-found";
 import MDEditor from "@uiw/react-md-editor";
 import { db, auth } from "../../firebase";
@@ -19,6 +19,8 @@ import {
   arrayUnion,
   updateDoc,
 } from "firebase/firestore";
+
+export const dynamic = "force-dynamic";
 
 export default function Page({ params: { page, id }, searchParams }) {
   const [noteData, setNoteData] = useState([]);
@@ -142,28 +144,26 @@ export default function Page({ params: { page, id }, searchParams }) {
                             onChange={(e) => setRepMsg(e.target.value)}
                           ></textarea>
                         </div>
-                        <Suspense fallback={<div>로딩...</div>}>
-                          <button
-                            onClick={async () => {
-                              // await updateDoc(
-                              //   doc(db, "articles", searchParams.id),
-                              //   {
-                              //     reply: arrayUnion({
-                              //       creationTime: new Date(),
-                              //       message: repMsg,
-                              //       userName: repName,
-                              //     }),
-                              //   }
-                              // );
-                              // setRepMsg("");
-                              // setRepName("익명");
-                              // setUpdate([...update]);
-                              console.log(searchParams);
-                            }}
-                          >
-                            등록
-                          </button>
-                        </Suspense>
+                        <button
+                          onClick={async () => {
+                            // await updateDoc(
+                            //   doc(db, "articles", searchParams.id),
+                            //   {
+                            //     reply: arrayUnion({
+                            //       creationTime: new Date(),
+                            //       message: repMsg,
+                            //       userName: repName,
+                            //     }),
+                            //   }
+                            // );
+                            // setRepMsg("");
+                            // setRepName("익명");
+                            // setUpdate([...update]);
+                            console.log(searchParams);
+                          }}
+                        >
+                          등록
+                        </button>
                       </div>
                     </div>
                   </div>
