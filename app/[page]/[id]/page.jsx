@@ -157,7 +157,7 @@ export default function Page({ params: { page, id }, searchParams }) {
                             // setRepMsg("");
                             // setRepName("익명");
                             // setUpdate([...update]);
-                            console.log(searchParams.id);
+                            console.log(searchParams);
                           }}
                         >
                           등록
