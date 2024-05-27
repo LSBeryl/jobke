@@ -19,10 +19,9 @@ import {
   arrayUnion,
   updateDoc,
 } from "firebase/firestore";
+import { useSearchParams } from "next/navigation";
 
-export const dynamic = "force-dynamic";
-
-export default function Page({ params: { page, id }, searchParams }) {
+export default function Page({ params: { page, id } }) {
   const [noteData, setNoteData] = useState([]);
   const [articlesData, setArticlesData] = useState([]);
 
@@ -30,6 +29,8 @@ export default function Page({ params: { page, id }, searchParams }) {
   const [repMsg, setRepMsg] = useState("");
 
   const [update, setUpdate] = useState([]);
+
+  const searchParams = useSearchParams();
 
   function formatTime(t) {
     const wallTime = new Date(t);
@@ -159,7 +160,7 @@ export default function Page({ params: { page, id }, searchParams }) {
                             // setRepMsg("");
                             // setRepName("익명");
                             // setUpdate([...update]);
-                            console.log(searchParams);
+                            console.log(searchParams.get("id"));
                           }}
                         >
                           등록
