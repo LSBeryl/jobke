@@ -144,19 +144,20 @@ export default function Page({ params: { page, id }, searchParams }) {
                         </div>
                         <button
                           onClick={async () => {
-                            await updateDoc(
-                              doc(db, "articles", searchParams.id),
-                              {
-                                reply: arrayUnion({
-                                  creationTime: new Date(),
-                                  message: repMsg,
-                                  userName: repName,
-                                }),
-                              }
-                            );
-                            setRepMsg("");
-                            setRepName("익명");
-                            setUpdate([...update]);
+                            // await updateDoc(
+                            //   doc(db, "articles", searchParams.id),
+                            //   {
+                            //     reply: arrayUnion({
+                            //       creationTime: new Date(),
+                            //       message: repMsg,
+                            //       userName: repName,
+                            //     }),
+                            //   }
+                            // );
+                            // setRepMsg("");
+                            // setRepName("익명");
+                            // setUpdate([...update]);
+                            console.log(searchParams.id);
                           }}
                         >
                           등록
