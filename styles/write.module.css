@@ -45,13 +45,12 @@
 .editor > div,
 .editor > div * {
   background: var(--black) !important;
-  color: var(--white) !important;
-  -webkit-text-fill-color: var(--white) !important;
+  color: var(--white);
+  -webkit-text-fill-color: var(--white);
 }
 
 .name {
   display: flex;
-  justify-content: center;
 }
 
 .name > input {

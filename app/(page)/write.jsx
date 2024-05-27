@@ -120,6 +120,7 @@ export default function Write({ searchParams }) {
             type="text"
             placeholder="이름"
             value={userName}
+            maxLength={"10"}
             onChange={(e) => setUserName(e.target.value)}
           />
         </div>
