@@ -58,6 +58,7 @@
 .nick {
   font-size: 2rem;
   font-weight: 600;
+  word-break: keep-all;
 }
 
 .nick > span {
