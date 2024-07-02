@@ -77,20 +77,28 @@
 }
 
 .table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
 }
 
 .col10 {
-  width: 10%;
+  width: 10rem;
 }
 
 .col15 {
-  width: 15%;
+  width: 15rem;
 }
 
 .col60 {
-  width: 60%;
+  width: 60rem;
+}
+
+.col50 {
+  width: 50rem;
+}
+
+.col30 {
+  width: 30rem;
 }
 
 .table tr {
@@ -114,6 +122,7 @@
   padding: 1rem 1.2rem;
   box-sizing: border-box;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 .table tbody td {
@@ -122,4 +131,17 @@
 
 .table td:nth-child(2):not(thead td) {
   text-align: left;
+}
+
+.table td:nth-child(4):not(thead td) {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .table td:nth-child(1):not(thead td) {
+    text-align: left;
+  }
+  .table td:nth-child(2) {
+    text-align: center !important;
+  }
 }

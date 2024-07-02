@@ -167,10 +167,27 @@ export default function Page({ params: { page, id } }) {
                             onChange={(e) => setRepMsg(e.target.value)}
                           ></textarea>
                         </div>
-                        <button
-                          onClick={async () => {
-                            if (repName == "관리자" || repName == "잡케") {
-                              if (isLogin) {
+                        <div>
+                          <button
+                            onClick={async () => {
+                              if (repName == "관리자" || repName == "잡케") {
+                                if (isLogin) {
+                                  await updateDoc(
+                                    doc(db, "articles", searchParams.get("id")),
+                                    {
+                                      reply: arrayUnion({
+                                        creationTime: new Date(),
+                                        message: repMsg,
+                                        userName: repName,
+                                      }),
+                                    }
+                                  );
+                                  setRepMsg("");
+                                  setUpdate([...update]);
+                                } else {
+                                  alert("사용할 수 없는 이름입니다.");
+                                }
+                              } else {
                                 await updateDoc(
                                   doc(db, "articles", searchParams.get("id")),
                                   {
@@ -183,27 +200,12 @@ export default function Page({ params: { page, id } }) {
                                 );
                                 setRepMsg("");
                                 setUpdate([...update]);
-                              } else {
-                                alert("사용할 수 없는 이름입니다.");
                               }
-                            } else {
-                              await updateDoc(
-                                doc(db, "articles", searchParams.get("id")),
-                                {
-                                  reply: arrayUnion({
-                                    creationTime: new Date(),
-                                    message: repMsg,
-                                    userName: repName,
-                                  }),
-                                }
-                              );
-                              setRepMsg("");
-                              setUpdate([...update]);
-                            }
-                          }}
-                        >
-                          등록
-                        </button>
+                            }}
+                          >
+                            등록
+                          </button>
+                        </div>
                       </div>
                     </div>
                   </div>

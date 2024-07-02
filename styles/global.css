@@ -18,30 +18,6 @@ html {
   color-scheme: dark;
 }
 
-@media (max-width: 1024px) {
-  html {
-    font-size: 14px;
-  }
-}
-
-@media (max-width: 768px) {
-  html {
-    font-size: 12px;
-  }
-}
-
-@media (max-width: 375px) {
-  html {
-    font-size: 10px;
-  }
-}
-
-@media (max-width: 320px) {
-  html {
-    font-size: 8px;
-  }
-}
-
 body {
   margin: 0;
   background: var(--black);
@@ -108,6 +84,32 @@ a {
   padding-bottom: 0.1rem;
 }
 
+.mobMenuCon {
+  display: none;
+}
+
+.mobMenu {
+  position: fixed;
+  left: 0;
+  top: 0;
+  width: 100vw;
+  height: 100vh;
+  backdrop-filter: blur(10rem);
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 2rem;
+  font-size: 1.3rem;
+  font-weight: 600;
+  color: var(--white);
+}
+
+.mobMenuAlert {
+  font-size: 0.7rem;
+  font-weight: 200;
+}
+
 .component {
   width: 100%;
   display: flex;
@@ -116,7 +118,7 @@ a {
 }
 
 .component > div {
-  width: 70%;
+  width: 80%;
   box-sizing: border-box;
   padding: 2rem;
 }
@@ -134,4 +136,30 @@ a {
 .footer > div:nth-child(2) {
   display: flex;
   gap: 0.3rem;
+}
+
+@media (max-width: 768px) {
+  .component > div {
+    width: 90%;
+  }
+  .header > div {
+    width: 80%;
+  }
+  .menu {
+    display: none;
+  }
+  .mobMenuCon {
+    display: block;
+  }
+  .footer {
+    font-size: 0.7rem;
+    flex-direction: column;
+    align-items: center;
+  }
+}
+
+@media (max-width: 425px) {
+  .component > div {
+    width: 100%;
+  }
 }

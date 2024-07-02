@@ -54,24 +54,25 @@
   border-bottom: 1px solid #383838;
 }
 
-.replyInputCon > div {
-  display: flex;
-  gap: 1rem;
-}
-
-.replyInputCon > div > div {
+.replyInputCon > div:nth-child(1) {
   display: flex;
   flex-direction: column;
-  gap: 0.4rem;
+}
+
+.replyInputCon > div:nth-child(2) {
+  border: 1px solid var(--gray-dark);
+  border-top: 0;
+  display: flex;
+  justify-content: flex-end;
 }
 
 .replyInputCon input {
   outline: none;
   border: 1px solid var(--gray-dark);
+  border-bottom: 0;
   padding: 0.5rem;
   height: 1rem;
   width: 7rem;
-  border-radius: 0.4rem;
 }
 
 .replyInputCon textarea {
@@ -82,16 +83,13 @@
   width: 100%;
   box-sizing: border-box;
   padding: 1rem;
-  border-radius: 0.4rem;
 }
 
 .replyInputCon button {
   outline: none;
-  border: 1px solid var(--gray-dark);
-  border-radius: 0.5rem;
+  border: 0;
+  border-left: 1px solid var(--gray-dark);
   padding: 0.5rem 1.2rem;
-  margin-top: 1rem;
-  float: right;
   cursor: pointer;
 }
 

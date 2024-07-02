@@ -4,27 +4,17 @@ import { useEffect, useState } from "react";
 import styles from "../../styles/note.module.css";
 import { db, auth } from "../firebase";
 import { setPersistence, browserLocalPersistence } from "firebase/auth";
-import {
-  getDocs,
-  collection,
-  getDoc,
-  doc,
-  addDoc,
-  deleteDoc,
-  setDoc,
-  getDocFromCache,
-  query,
-} from "firebase/firestore";
-import MDEditor from "@uiw/react-md-editor";
-import rehypeSanitize from "rehype-sanitize";
+import { getDocs, collection, getDoc, doc } from "firebase/firestore";
 import { useRouter } from "next/navigation";
 import { Pencil } from "lucide-react";
+import { useMediaQuery } from "react-responsive";
 
 export default function Note() {
-  const [noteData, setNoteData] = useState([]);
-  const [isLogin, setLogin] = useState(false);
-
+  const [noteData, setNoteData] = useState(null); // 초기 상태를 null로 설정
+  const [isLogin, setLogin] = useState(false); // 초기 로그인 상태 명시적으로 설정
   const router = useRouter();
+
+  const [mounted, setMounted] = useState(false);
 
   function formatTime(t) {
     const wallTime = new Date(t);
@@ -39,9 +29,6 @@ export default function Note() {
   }
 
   const init = async () => {
-    // 처음 마운트 될 때 실행되는 함수
-    // ready 시킨 후 localStorage에 user 존재하면 자동로그인
-    // 비밀번호가 맞아야 로그인되므로(잡케만 로그인 가능) 로그아웃 구현은 나중에 필요하면 함
     await auth.authStateReady();
     setPersistence(auth, browserLocalPersistence).then(() => {
       auth.onAuthStateChanged((user) => {
@@ -52,6 +39,7 @@ export default function Note() {
 
   useEffect(() => {
     init();
+    setMounted(true);
   }, []);
 
   useEffect(() => {
@@ -64,91 +52,111 @@ export default function Note() {
       });
 
       const results = await Promise.all(promises);
-      return results;
+      setNoteData(results); // 여기에서 noteData 상태를 업데이트
     }
 
-    async function fetchData() {
-      const data = await fetchIds();
-      setNoteData(data);
-    }
-
-    fetchData();
+    fetchIds();
   }, []);
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
-    <div className={styles.container}>
-      <h2>공지사항</h2>
-      <div className={styles.tableCon}>
-        {isLogin ? (
-          <div
-            onClick={() => {
-              router.push("/write?type=announce");
-            }}
-          >
-            <Pencil height="1rem" />
-            글쓰기
-          </div>
-        ) : null}
-        <table className={styles.table}>
-          <colgroup>
-            <col className={styles.col10} />
-            <col className={styles.col60} />
-            <col className={styles.col15} />
-            <col className={styles.col15} />
-          </colgroup>
-          <thead>
-            <tr>
-              <td>번호</td>
-              <td>제목</td>
-              <td>작성자</td>
-              <td>날짜</td>
-            </tr>
-          </thead>
-          <tbody>
-            {noteData[0] ? (
-              noteData
-                .sort((a, b) => {
-                  const timeA = a.creationTime ? a.creationTime.seconds : null;
-                  const timeB = b.creationTime ? b.creationTime.seconds : null;
-                  return timeB - timeA;
-                })
-                .map((data, i) => (
-                  <tr
-                    key={i}
-                    onClick={() => {
-                      router.push(`note/${noteData.length - i}`);
-                    }}
-                  >
-                    <td>{noteData.length - i}</td>
-                    <td>{data.title}</td>
-                    <td
-                      style={
-                        data.userName == "관리자"
-                          ? {
-                              color: "#a00",
-                              fontWeight: "700",
-                            }
-                          : data.userName == "잡케"
-                          ? {
-                              color: "var(--green-main)",
-                              fontWeight: "700",
-                            }
-                          : null
-                      }
-                    >
-                      {data.userName}
-                    </td>
-                    <td>{formatTime(data.creationTime.seconds * 1000)}</td>
-                  </tr>
-                ))
+    mounted && (
+      <div className={styles.container}>
+        <h2>공지사항</h2>
+        <div className={styles.tableCon}>
+          {isLogin ? (
+            <div
+              onClick={() => {
+                router.push("/write?type=announce");
+              }}
+            >
+              <Pencil height="1rem" />
+              글쓰기
+            </div>
+          ) : null}
+          <table className={styles.table}>
+            {isMobile ? (
+              <colgroup>
+                <col className={styles.col60} />
+                <col className={styles.col30} />
+              </colgroup>
             ) : (
-              <tr>
-                <td colSpan={"4"}>데이터 로딩 중...</td>
-              </tr>
+              <colgroup>
+                <col className={styles.col10} />
+                <col className={styles.col50} />
+                <col className={styles.col15} />
+                <col className={styles.col15} />
+              </colgroup>
             )}
-          </tbody>
-        </table>
+            <thead>
+              <tr>
+                {isMobile ? null : <td>번호</td>}
+                <td>제목</td>
+                <td>작성자</td>
+                {isMobile ? null : <td>날짜</td>}
+              </tr>
+            </thead>
+            <tbody>
+              {noteData ? (
+                noteData.length > 0 ? (
+                  noteData
+                    .sort((a, b) => {
+                      const timeA = a.creationTime
+                        ? a.creationTime.seconds
+                        : null;
+                      const timeB = b.creationTime
+                        ? b.creationTime.seconds
+                        : null;
+                      return timeB - timeA;
+                    })
+                    .map((data, i) => (
+                      <tr
+                        key={i}
+                        onClick={() => {
+                          router.push(`note/${noteData.length - i}`);
+                        }}
+                      >
+                        {isMobile ? null : <td>{noteData.length - i}</td>}
+                        <td>{data.title}</td>
+                        <td
+                          style={
+                            data.userName == "관리자"
+                              ? {
+                                  color: "#a00",
+                                  fontWeight: "700",
+                                }
+                              : data.userName == "잡케"
+                              ? {
+                                  color: "var(--green-main)",
+                                  fontWeight: "700",
+                                }
+                              : null
+                          }
+                        >
+                          {data.userName}
+                        </td>
+                        {isMobile ? null : (
+                          <td>
+                            {formatTime(data.creationTime.seconds * 1000)}
+                          </td>
+                        )}
+                      </tr>
+                    ))
+                ) : (
+                  <tr>
+                    <td colSpan={isMobile ? "2" : "4"}>데이터가 없습니다.</td>
+                  </tr>
+                )
+              ) : (
+                <tr>
+                  <td colSpan={isMobile ? "2" : "4"}>데이터 로딩 중...</td>
+                </tr>
+              )}
+            </tbody>
+          </table>
+        </div>
       </div>
-    </div>
+    )
   );
 }

@@ -1,7 +1,7 @@
 @import url("https://cdn.jsdelivr.net/gh/orioncactus/pretendard@v1.3.9/dist/web/variable/pretendardvariable.min.css");
 .box {
   background-size: cover;
-  background-position: 0% 55%;
+  background-position: 50%;
   background-repeat: no-repeat;
   width: 100%;
   height: 20rem;
@@ -27,10 +27,36 @@
   /* 게임 메인 설명 */
   font-size: 1.7rem;
   font-weight: 600;
+  &::before {
+    content: '"';
+  }
+  &::after {
+    content: '"';
+  }
 }
 
 .box > div:nth-child(3) {
   /* 게임 서브 설명 */
   font-size: 1.1rem;
   font-weight: 200;
+}
+
+@media (max-width: 768px) {
+  .box > div:nth-child(1) {
+    font-size: 2rem;
+    font-weight: 700;
+  }
+  .box > div:nth-child(2) {
+    font-size: 1.2rem;
+    display: none;
+  }
+  .box > div:nth-child(3) {
+    height: 5rem;
+    overflow: scroll;
+    flex-grow: 1;
+    line-height: 1.5rem;
+    border-top: 1px solid #b8b8b8;
+    border-bottom: 1px solid #b8b8b8;
+    padding-block: 0.5rem;
+  }
 }

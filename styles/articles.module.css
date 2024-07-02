@@ -8,6 +8,59 @@
   margin-block: 3rem;
 }
 
+.editor {
+  margin-block: 2rem;
+  display: flex;
+  flex-direction: column;
+  gap: 1.5rem;
+}
+
+.form {
+  display: flex;
+  width: 100%;
+  align-items: center;
+  gap: 1rem;
+}
+
+.form input {
+  width: 90%;
+  outline: 0;
+  border: 0;
+  font-size: 1.5rem;
+  font-weight: 400;
+  border-top: 1px solid var(--gray-dark);
+  border-bottom: 1px solid var(--gray-dark);
+  padding: 1rem;
+}
+
+.form button {
+  width: 10%;
+  height: 3rem;
+  border: 1px solid var(--gray-dark);
+  border-radius: 1rem;
+  cursor: pointer;
+  transition: all 0.2s ease;
+  font-size: 1.05rem;
+}
+
+.form button:hover {
+  background: #1d1d1d !important;
+}
+
+.editor > div,
+.editor > div * {
+  background: var(--black) !important;
+  color: var(--white) !important;
+  -webkit-text-fill-color: var(--white) !important;
+}
+
+.tableCon {
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+  gap: 1rem;
+}
 .tableCon > div {
   display: flex;
   align-items: center;
@@ -23,29 +76,29 @@
   background: #1d1d1d;
 }
 
-.tableCon {
-  display: flex;
-  justify-content: center;
-  align-items: center;
-  flex-direction: column;
-  gap: 1rem;
-}
-
 .table {
-  width: 80%;
+  width: 100%;
   border-collapse: collapse;
 }
 
 .col10 {
-  width: 10%;
+  width: 10rem;
 }
 
 .col15 {
-  width: 15%;
+  width: 15rem;
 }
 
 .col60 {
-  width: 60%;
+  width: 60rem;
+}
+
+.col50 {
+  width: 50rem;
+}
+
+.col30 {
+  width: 30rem;
 }
 
 .table tr {
@@ -69,6 +122,7 @@
   padding: 1rem 1.2rem;
   box-sizing: border-box;
   text-align: center;
+  font-size: 0.9rem;
 }
 
 .table tbody td {
@@ -77,4 +131,17 @@
 
 .table td:nth-child(2):not(thead td) {
   text-align: left;
+}
+
+.table td:nth-child(4):not(thead td) {
+  font-size: 0.8rem;
+}
+
+@media (max-width: 768px) {
+  .table td:nth-child(1):not(thead td) {
+    text-align: left;
+  }
+  .table td:nth-child(2) {
+    text-align: center !important;
+  }
 }

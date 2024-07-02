@@ -118,7 +118,7 @@ export default function Write({ searchParams }) {
         <div className={styles.name}>
           <input
             type="text"
-            placeholder="이름"
+            placeholder="작성자명"
             value={userName}
             maxLength={"10"}
             onChange={(e) => setUserName(e.target.value)}
