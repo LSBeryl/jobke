@@ -17,6 +17,7 @@ import {
   query,
 } from "firebase/firestore";
 import Link from "next/link";
+import { useMediaQuery } from "react-responsive";
 
 export default function Plan() {
   const [calendar, setCalendar] = useState([[], [], [], [], [], []]);
@@ -26,6 +27,8 @@ export default function Plan() {
   const [update, setUpdate] = useState([]);
 
   const [isLogin, setLogin] = useState(false); // 로그인 되어있는 상태인지 표시
+
+  const [planOpen, setPlanOpen] = useState({ open: false, num: -1 });
 
   const init = async () => {
     // 처음 마운트 될 때 실행되는 함수
@@ -38,6 +41,16 @@ export default function Plan() {
       });
     });
   };
+
+  async function edit(day) {
+    const updateMessage = prompt("수정 메시지를 입력해주세요 (', '로 구분)");
+    const updateMap = { ...scheduleData };
+    updateMap[day] = updateMessage;
+    await setDoc(doc(db, "schedule", "schedule"), {
+      ...updateMap,
+    });
+    setUpdate([...update]);
+  }
 
   useEffect(() => {
     init();
@@ -61,8 +74,43 @@ export default function Plan() {
     fetchScheduleIds();
   }, [update]);
 
+  const isMobile = useMediaQuery({ query: "(max-width: 768px)" });
+
   return (
     <div className={styles.plan}>
+      {isMobile && planOpen.open ? (
+        <div
+          className={styles.planPopup}
+          onClick={(e) => {
+            if (e.target.className.includes("planPopup")) {
+              const data = { open: false, num: -1 };
+              setPlanOpen(data);
+            }
+          }}
+        >
+          <div>
+            <div className={styles.popupTitle}>
+              <h3>
+                {month}월 {planOpen.num}일 일정
+              </h3>
+              {isLogin ? (
+                <div
+                  onClick={() => {
+                    edit(planOpen.num);
+                  }}
+                >
+                  수정
+                </div>
+              ) : null}
+            </div>
+            {scheduleData[planOpen.num]
+              ? scheduleData[planOpen.num]
+                  .split(", ")
+                  .map((game) => <div key={game}>{game}</div>)
+              : null}
+          </div>
+        </div>
+      ) : null}
       <div className={styles.tableCon}>
         <div>{month}월</div>
         <table>
@@ -81,7 +129,14 @@ export default function Plan() {
             {[0, 1, 2, 3, 4, 5].map((week) => (
               <tr key={week}>
                 {[0, 1, 2, 3, 4, 5, 6].map((day) => (
-                  <td key={day}>
+                  <td
+                    key={day}
+                    onClick={() => {
+                      const data = { open: true, num: calendar[week][day] };
+
+                      setPlanOpen(data);
+                    }}
+                  >
                     <div>
                       <div
                         className={
@@ -92,16 +147,8 @@ export default function Plan() {
                         {isLogin && calendar[week][day] ? (
                           <div
                             className={styles.edit}
-                            onClick={async () => {
-                              const updateMessage = prompt(
-                                "수정 메시지를 입력해주세요 (', '로 구분)"
-                              );
-                              const updateMap = { ...scheduleData };
-                              updateMap[calendar[week][day]] = updateMessage;
-                              await setDoc(doc(db, "schedule", "schedule"), {
-                                ...updateMap,
-                              });
-                              setUpdate([...update]);
+                            onClick={() => {
+                              edit(calendar[week][day]);
                             }}
                           >
                             수정
@@ -112,11 +159,18 @@ export default function Plan() {
                         {scheduleData[calendar[week][day]]
                           ? scheduleData[calendar[week][day]]
                               .split(", ")
-                              .map((game) => (
-                                <div className={styles.gameTag} key={game}>
-                                  {game}
-                                </div>
-                              ))
+                              .map((game) =>
+                                isMobile ? (
+                                  <div
+                                    className={styles.gameTagMob}
+                                    key={game}
+                                  ></div>
+                                ) : (
+                                  <div className={styles.gameTag} key={game}>
+                                    {game}
+                                  </div>
+                                )
+                              )
                           : null}
                       </div>
                     </div>

@@ -60,7 +60,7 @@
 }
 
 .replyInputCon > div:nth-child(2) {
-  border: 1px solid var(--gray-dark);
+  border: 1px solid #333;
   border-top: 0;
   display: flex;
   justify-content: flex-end;
@@ -68,7 +68,7 @@
 
 .replyInputCon input {
   outline: none;
-  border: 1px solid var(--gray-dark);
+  border: 1px solid #333;
   border-bottom: 0;
   padding: 0.5rem;
   height: 1rem;
@@ -78,7 +78,7 @@
 .replyInputCon textarea {
   resize: none;
   outline: none;
-  border: 1px solid var(--gray-dark);
+  border: 1px solid #333;
   height: 5rem;
   width: 100%;
   box-sizing: border-box;
@@ -88,7 +88,7 @@
 .replyInputCon button {
   outline: none;
   border: 0;
-  border-left: 1px solid var(--gray-dark);
+  border-left: 1px solid #333;
   padding: 0.5rem 1.2rem;
   cursor: pointer;
 }
