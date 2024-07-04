@@ -114,6 +114,7 @@
   width: 100vw;
   height: 100vh;
   background: #3333337d;
+  backdrop-filter: blur(5px);
   display: flex;
   justify-content: center;
   align-items: center;
@@ -141,11 +142,15 @@
   display: flex;
   justify-content: space-between;
   align-items: center;
+  border-bottom: 1px solid #616161;
 }
 
 .popupTitle > div {
   color: #bbb;
   font-size: 0.9rem;
+  border: 1px solid #363636;
+  padding: 0.3rem 0.5rem;
+  border-radius: 5px;
 }
 
 @media (max-width: 1100px) {
