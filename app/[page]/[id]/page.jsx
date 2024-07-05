@@ -288,9 +288,13 @@ export default function Page({ params: { page, id } }) {
                       <div>
                         <div
                           onClick={() => {
-                            router.push(
-                              `/write?type=note&mode=modify&id=${data.uuid}`
-                            );
+                            if (isLogin) {
+                              router.push(
+                                `/write?type=note&mode=modify&id=${data.uuid}`
+                              );
+                            } else {
+                              alert("글 수정 권한이 없습니다.");
+                            }
                           }}
                         >
                           수정
