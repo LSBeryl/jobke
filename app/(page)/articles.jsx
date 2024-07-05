@@ -276,7 +276,9 @@ export default function Articles() {
                       <tr
                         key={i}
                         onClick={() => {
-                          router.push(`articles/${noteData.length - i}`);
+                          router.push(
+                            `articles/${noteData.length - i}?id=${data.uuid}`
+                          );
                         }}
                       >
                         {isMobile ? null : <td>{noteData.length - i}</td>}

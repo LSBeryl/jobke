@@ -19,7 +19,7 @@ import {
   arrayUnion,
   updateDoc,
 } from "firebase/firestore";
-import { useSearchParams } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 
 export default function Page({ params: { page, id } }) {
   const [noteData, setNoteData] = useState([]);
@@ -31,6 +31,8 @@ export default function Page({ params: { page, id } }) {
   const [update, setUpdate] = useState([]);
 
   const searchParams = useSearchParams();
+
+  const router = useRouter();
 
   function formatTime(t) {
     const wallTime = new Date(t);
@@ -128,6 +130,54 @@ export default function Page({ params: { page, id } }) {
                       <span>
                         작성일 : {formatTime(data.creationTime.seconds * 1000)}
                       </span>
+                      <div>
+                        <div
+                          onClick={() => {
+                            router.push(
+                              `/write?type=normal&mode=modify&id=${data.uuid}`
+                            );
+                          }}
+                        >
+                          수정
+                        </div>
+                        <div
+                          onClick={() => {
+                            (async () => {
+                              if (isLogin) {
+                                const check = confirm("글을 삭제하시겠습니까?");
+                                if (check) {
+                                  await deleteDoc(
+                                    doc(db, "articles", data.uuid)
+                                  );
+                                  alert("관리자 권한으로 글이 삭제되었습니다.");
+                                  router.push("/articles");
+                                } else {
+                                  alert("취소되었습니다.");
+                                }
+                              } else {
+                                const check = confirm("글을 삭제하시겠습니까?");
+                                if (check) {
+                                  const pw = prompt("비밀번호를 입력해주세요.");
+                                  if (pw == data.password) {
+                                    await deleteDoc(
+                                      doc(db, "articles", data.uuid)
+                                    );
+                                    alert("글이 삭제되었습니다.");
+                                  } else {
+                                    alert(
+                                      "비밀번호가 올바르지 않습니다. 다시 시도해주세요."
+                                    );
+                                  }
+                                } else {
+                                  alert("취소되었습니다.");
+                                }
+                              }
+                            })();
+                          }}
+                        >
+                          삭제
+                        </div>
+                      </div>
                     </div>
                     <MDEditor.Markdown source={data.message} />
                     <div className={styles.replyText}>
@@ -235,6 +285,39 @@ export default function Page({ params: { page, id } }) {
                       <span>
                         작성일 : {formatTime(data.creationTime.seconds * 1000)}
                       </span>
+                      <div>
+                        <div
+                          onClick={() => {
+                            router.push(
+                              `/write?type=note&mode=modify&id=${data.uuid}`
+                            );
+                          }}
+                        >
+                          수정
+                        </div>
+                        <div
+                          onClick={() => {
+                            (async () => {
+                              if (isLogin) {
+                                const check = confirm("글을 삭제하시겠습니까?");
+                                if (check) {
+                                  await deleteDoc(
+                                    doc(db, "announcements", data.uuid)
+                                  );
+                                  alert("관리자 권한으로 글이 삭제되었습니다.");
+                                  router.push("/note");
+                                } else {
+                                  alert("취소되었습니다.");
+                                }
+                              } else {
+                                alert("글 삭제 권한이 없습니다.");
+                              }
+                            })();
+                          }}
+                        >
+                          삭제
+                        </div>
+                      </div>
                     </div>
                     <MDEditor.Markdown source={data.message} />
                   </div>

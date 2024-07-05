@@ -22,11 +22,23 @@
   /* 공지 날짜 */
   font-size: 0.9rem;
   font-weight: 200;
-  color: var(--gray);
   padding-bottom: 1.5rem;
   border-bottom: 1px solid #383838;
   display: flex;
   gap: 1rem;
+}
+
+.note > div > div:nth-child(2) > div {
+  /* 수정 및 삭제 컨테이너 */
+  flex-grow: 1;
+  display: flex;
+  justify-content: flex-end;
+  gap: 0.8rem;
+  padding-right: 1rem;
+  & > div {
+    color: #797979;
+    cursor: pointer;
+  }
 }
 
 .note > div > div:nth-child(3) {

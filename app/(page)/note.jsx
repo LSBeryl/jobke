@@ -114,7 +114,9 @@ export default function Note() {
                       <tr
                         key={i}
                         onClick={() => {
-                          router.push(`note/${noteData.length - i}`);
+                          router.push(
+                            `note/${noteData.length - i}?id=${data.uuid}`
+                          );
                         }}
                       >
                         {isMobile ? null : <td>{noteData.length - i}</td>}
